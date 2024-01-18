@@ -1,9 +1,7 @@
+The provided Bash script is designed to automate the periodic checking and updating process for Plex Media Server on a Debian-based system with ARM64 architecture. The script includes two main functions: update_plex and check_updates_periodically.
 
-The provided Bash script automates the update process for Plex Media Server on a Debian-based system with ARM64 architecture. The script begins by defining a variable PLEX_PATH to store the path to the Plex Media Server directory, set to "/usr/lib/plexmediaserver". Following this, a function named update_plex() is defined to encapsulate the update process. Within this function:
+The update_plex function is responsible for stopping the Plex Media Server service, downloading the latest version of Plex Media Server tailored for ARM64 architecture from the official Plex website, installing the new version using dpkg, restarting the Plex service, and finally, removing the temporary package file.
 
-The Plex Media Server service is stopped using sudo service plexmediaserver stop.
-The latest version of Plex Media Server for ARM64 architecture is downloaded from the Plex website using the wget command.
-The new version is installed with sudo dpkg -i plex.deb.
-The Plex Media Server service is restarted with sudo service plexmediaserver start.
-The temporary package file is removed to maintain a clean working directory.
-Finally, the script calls the update_plex function, initiating the Plex update process. This script streamlines the update procedure, providing a convenient and automated way to keep Plex Media Server up-to-date on the specified system. Users should ensure proper execution permissions (e.g., chmod +x script.sh) before running the script.
+The core functionality is expanded with the addition of the check_updates_periodically function. This function utilizes a perpetual loop (while true) to perform periodic checks for updates. Within each iteration of the loop, the script echoes a message indicating that it is checking for updates. It then retrieves the latest Plex version available from the Plex website and compares it with the currently installed version. If a newer version is detected, the script triggers the update_plex function to execute the update process. Otherwise, it notifies that no update is available and waits for 24 hours before initiating the next check.
+
+This periodic update-checking mechanism ensures that the Plex Media Server is regularly inspected for newer releases, automating the update process and allowing users to stay current with the latest features and improvements without manual intervention. Users can adjust the duration of the waiting period between checks by modifying the sleep parameter within the script.
